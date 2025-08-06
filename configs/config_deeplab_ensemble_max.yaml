@@ -1,0 +1,63 @@
+input: "/disk/ml/datasets/aev/camera_lidar_semantic"
+output: "/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/"
+
+
+DATASET:
+  root_dataset: "/disk/ml/datasets/aev/camera_lidar_semantic"
+  dataset: "highway"
+  train_split: train
+  val_split: val
+  num_class: 38
+  img_height: 912
+  img_width: 912
+
+MODEL:
+  arch: "deeplabv3plus"
+  expert: "ensemble"
+  backbone: "resnet101" # mobilenetv2
+  out_stride: 16
+  ens_type: "max"
+
+SYSTEM:
+  num_workers: 4
+  pin_memory: False
+
+TRAIN:
+  start_epoch: 0
+  num_epochs: 200
+  patience: 50
+  eval_interval: 10
+  batch_size: 1
+  optimizer: "SGD"
+  lr: 0.01
+  momentum: 0.99
+  weight_decay: 0.0001
+  lr_schedule: "cos"
+  seed: 304
+  resume: ""
+  lr_step:   40
+  no_val: False
+
+VAL:
+  batch_size: 1
+  visualize: False
+  
+
+TEST:
+  batch_size: 1
+  img_height: 960
+  img_width: 1280
+  checkpoint_moe_expert_1: "/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/20240923_152437_deeplabv3plus_highway_resnet101_highway/model_best.pth.tar" #"/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/20240919_113814_deeplab_expert_resnet_highway/model_best.pth.tar"
+  checkpoint_moe_expert_2: "/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/20240925_141843_deeplabv3plus_expert_resnet101_urban/model_best.pth.tar" #"/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/20240919_113438_deeplab_expert_resnet_urban/model_best.pth.tar"
+  
+ATTACK:
+    max_norm_pixel_value: 2.6399999 # lower and upper values come form normalization used in deeplap, instead of pixel values from 0 to 1, normalized values range from -2.117904 to 2.6399999
+    min_norm_pixel_value: -2.117904
+    epsilon: 0.05
+    pgd_steps: 10
+    lr: 0.01
+
+test_sets: ['all']
+
+
+

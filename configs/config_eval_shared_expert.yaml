@@ -1,0 +1,36 @@
+input: "/disk/ml/datasets/aev/camera_lidar_semantic"
+output: "/disk/vanishing_data/pavlitsk/moe_experiments/experts/"
+
+backbone: "resnet"
+lr:  0.01
+base_size:  901
+crop_size:  901
+lr_scheduler:  "poly"
+lr_step:   40
+workers:   8
+epochs:  2
+batch_size:  2
+gpu_ids:  "0"
+eval_interval:  1
+checkpoint_period: 5
+
+dataset:   "audi_split"
+
+model:  "experts-shared"
+checkpoint:  "/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/deeplab-resnet-experts-shared/model_best.pth.tar"
+decoder_for_eval: 2
+
+test_datasets: ["all"]
+
+out_stride: 16
+loss_type: "ce"
+sync_bn: "None"
+freeze_bn: False
+momentum: 0.9
+weight_decay: 0.0005
+use_balanced_weights: False
+cuda: True
+start_epoch: 0
+
+
+

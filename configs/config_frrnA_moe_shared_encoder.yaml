@@ -1,0 +1,48 @@
+DATASET:
+  root_dataset: "/disk/ml/datasets/aev/camera_lidar_semantic"
+  dataset: "highway,urban"
+  train_split: train
+  val_split: val
+  num_class: 38
+  img_height: 480
+  img_width: 640
+
+MODEL:
+  arch: "frrnA"
+  expert: "moe"
+  shared_encoder: True
+  gate: "simple_w_conv"
+  layer: "42"
+  with_conv: True
+
+SYSTEM:
+  num_workers: 4
+  pin_memory: False
+
+TRAIN:
+  start_epoch: 0
+  num_epochs: 0
+  patience: 0
+  num_epochs_ft: 20
+  patience_ft: 20
+  eval_interval: 1
+  batch_size: 1
+  optimizer: "SGD"
+  lr: 0.0001
+  momentum: 0.99
+  weight_decay: 0.0001
+  lr_schedule: "cos"
+  seed: 304
+  resume: ""
+
+VAL:
+  batch_size: 1
+  visualize: False
+  checkpoint: "model_best.pth"
+
+TEST:
+  batch_size: 8
+  img_height: 960
+  img_width: 1280
+
+DIR: "/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/"

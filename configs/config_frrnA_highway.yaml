@@ -1,0 +1,51 @@
+DATASET:
+  root_dataset: "/disk/ml/datasets/aev/camera_lidar_semantic"
+  dataset: "highway"
+  train_split: train
+  val_split: val
+  num_class: 38
+  img_height: 480
+  img_width: 640
+
+MODEL:
+  arch: "frrnA"
+  expert: "highway"
+  gate: ""   # "simple_wo_conv"
+  with_conv: True
+
+SYSTEM:
+  num_workers: 4
+  pin_memory: False
+
+TRAIN:
+  start_epoch: 0
+  num_epochs: 200
+  patience: 50
+  eval_interval: 1
+  batch_size: 2
+  optimizer: "SGD"
+  lr: 0.01
+  momentum: 0.99
+  weight_decay: 0.0001
+  lr_schedule: "cos"
+  seed: 304
+  resume: ""
+
+VAL:
+  batch_size: 1
+  visualize: False
+  checkpoint: "model_best.pth"
+
+TEST:
+  batch_size: 1
+  img_height: 960
+  img_width: 1280
+
+DIR: "/disk/vanishing_data/pavlitsk/moe_experiments/experts/audi_split/"
+output_dir: "/disk/vanishing_data/pavlitsk/moe_experiments/attacks/"
+train_dataset: 'all'
+test_sets: ['all']
+epsilon: 0.1
+delta_path: "/disk/vanishing_data/pavlitsk/moe_experiments/attacks/20240813_210623_frrn_highway_dataset_all_pdg_epsilon_0.05_steps_10/delta/delta_30.pt"
+pgd_steps: 10
+
