@@ -1,4 +1,4 @@
-# Mixture of Experts at the Model Level
+# Model-Level Mixtures of Experts for Semantic Segmentation
 Mixture of experts (MoE) is a method to combine several neural networks (experts), each focused on a specific task. An additional gating network then learns to select the most suitable expert for each input, or a combination of experts. By being able to use both the overall model output as well as retaining the possibility to take into account individual expert outputs, the agreement or disagreement between those individual outputs can be used to gain insights into the decision process. Expert networks are trained by splitting the input data into semantic subsets, e.g. corresponding to different driving scenarios, to become experts in those domains. An additional gating network that is also trained on the same input data is consequently used to weight the output of individual experts. 
 
 This repo contains a PyTorch implementation of an MoE for the semantic segmentation of traffic scenes from our ICMLA2024 paper [Towards Adversarial Robustness of Model-Level Mixture-of-Experts Architectures for Semantic Segmentation ](https://arxiv.org/abs/2412.11608). 
@@ -14,7 +14,7 @@ The following repositories were used:
 ## Dataset
 We used three subsets of the [A2D2 Dataset](https://www.a2d2.audi/a2d2/en/dataset.html), manually labeled according to the road type (highway/urban/ambiguous). The respective file names of ground truth are saved in text files in the `./dataloaders/a2d2_split` folder. 
 
-The numbers of images in each subset is the following:
+The number of images in each subset is the following:
 
 ```
 highway: 
@@ -77,13 +77,42 @@ Metric: mean IOU in percentage. Models were evaluated on the highway+urban test 
 
 # Citation
 
-If you find this code useful for your research, please cite our paper:
+If you find this code useful for your research, please cite our papers:
 
 ```latex
-@InProceedings{pavlitska2024towards,
-  author    = {Pavlitska, Svetlana and Müller, Leopold and Zöllner, J. Marius},
-  title={Towards Adversarial Robustness of Model-Level Mixture-of-Experts Architectures for Semantic Segmentation},
-  booktitle = { International Conference on Machine Learning and Applications (ICMLA)},
-  year      = {2024}
+@inproceedings{pavlitskaya2020using,
+  author    = {Svetlana Pavlitskaya and
+               Christian Hubschneider and
+               Michael Weber and
+               Ruby Moritz and
+               Fabian Hüger and
+               Peter Schlicht and
+               J. Marius Zöllner},
+  title     = {Using Mixture of Expert Models to Gain Insights into Semantic Segmentation},
+  booktitle = {Conference on Computer Vision and Pattern Recognition (CVPR) - Workshops},
+  year      = {2020},
+}
+```
+
+```latex
+@incollection{pavlitskaya2022evaluating,
+  author    = {Svetlana Pavlitskaya and
+               Christian Hubschneider and
+               Michael Weber},
+  title    = {Evaluating Mixture-of-Experts Architectures for Network Aggregation},
+  booktitle    = {Deep Neural Networks and Data for Automated Driving: Robustness, Uncertainty Quantification, and Insights Towards Safety},
+  year    = {2022},
+  publisher    = {Springer}
+}
+```
+
+```latex
+@inproceedings{pavlitska2024towards,
+  author    = {Svetlana Pavlitska and
+               Leopold Müller and
+               J. Marius Zöllner},
+  title    = {Towards Adversarial Robustness of Model-Level Mixture-of-Experts Architectures for Semantic Segmentation},
+  booktitle    = {International Conference on Machine Learning and Applications (ICMLA)},
+  year    = {2024}
 }
 ```
